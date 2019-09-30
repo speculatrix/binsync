@@ -1,4 +1,6 @@
-// binsync is a tool for copying a binary file and synchonising changes
+// binsync is a tool which compares an input and output file in chunks of
+// 1KiB and rewrites the chunks in the output file if they're different.
+
 // licensed under GPLv3 by Paul Mansfield
 // (c) 2019 Paul Mansfield
 
