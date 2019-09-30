@@ -1,6 +1,5 @@
 // binsync is a tool for copying a binary file and synchonising changes
 //
-//
 
 #include <fcntl.h>
 #include <unistd.h>
@@ -79,8 +78,15 @@ int	main(
 		return(1);
 	}
 
-	while (file_pos < stat_in.st_size) {
-		int chunk_size = (file_pos < stat_in.st_size - block_size) ? block_size : stat_in.st_size - file_pos;
+	// comparison limit is set to file size if unset or large than file size
+	if (!cmp_limit || (cmp_limit > stat_in.st_size)) {
+		cmp_limit = stat_in.st_size;
+	}
+
+	// if there's still data to be compared..
+	while (file_pos < cmp_limit) {
+		// read file in block_size chunks or remainder of file
+		int chunk_size = (file_pos < cmp_limit - block_size) ? block_size : cmp_limit - file_pos;
 		//printf("Dbg, reading chunk size %d at position %ld\n", chunk_size, file_pos);
 		read(fd_in, buff_in, chunk_size);
 		read(fd_out, buff_out, chunk_size);
@@ -99,3 +105,4 @@ int	main(
 	close(fd_out);
 	return(0);
 }
+// end binsync.c
