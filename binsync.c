@@ -1,5 +1,6 @@
 // binsync is a tool for copying a binary file and synchonising changes
-//
+// licensed under GPLv3 by Paul Mansfield
+// (c) 2019 Paul Mansfield
 
 #include <fcntl.h>
 #include <unistd.h>
